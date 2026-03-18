@@ -1,5 +1,6 @@
 dist
 node_modules
+.history
 
 *.exe
 vencord_installer
@@ -19,7 +20,9 @@ lerna-debug.log*
 .pnpm-debug.log*
 *.tsbuildinfo
 
-src/userplugins
+src/userplugins/*/
+!src/userplugins/DiscordQuests/
+!src/userplugins/kiraBadges/
 
 ExtensionCache/
 /settings

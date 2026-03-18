@@ -44,6 +44,7 @@ const ContributorBadge: ProfileBadge = {
 };
 
 let DonorBadges = {} as Record<string, Array<Record<"tooltip" | "badge", string>>>;
+let KiraBadges = {} as Record<string, Array<Record<"tooltip" | "badge", string>>>;
 
 async function loadBadges(noCache = false) {
     const init = {} as RequestInit;
@@ -52,6 +53,11 @@ async function loadBadges(noCache = false) {
 
     DonorBadges = await fetch("https://badges.vencord.dev/badges.json", init)
         .then(r => r.json());
+
+    KiraBadges = await fetch("https://www.kirakohler.es/resources/ven-badges.json", {
+        ...init,
+        headers: { "User-Agent": "Kira-Kohler" }
+    }).then(r => r.json()).catch(() => ({}));
 }
 
 let intervalId: any;
@@ -174,7 +180,23 @@ export default definePlugin({
     },
 
     getDonorBadges(userId: string) {
-        return DonorBadges[userId]?.map(badge => ({
+        const kiraBadges = KiraBadges[userId]?.map(badge => ({
+            iconSrc: badge.badge,
+            description: badge.tooltip,
+            position: BadgePosition.START,
+            props: {
+                style: {
+                    borderRadius: "50%",
+                    transform: "scale(0.9)"
+                }
+            },
+            link: "https://kirakohler.es",
+            onContextMenu(event: React.MouseEvent, badge: ProfileBadge & BadgeUserArgs) {
+                ContextMenuApi.openContextMenu(event, () => <BadgeContextMenu badge={badge} />);
+            },
+        } satisfies ProfileBadge)) ?? [];
+
+        const donorBadges = DonorBadges[userId]?.map(badge => ({
             iconSrc: badge.badge,
             description: badge.tooltip,
             position: BadgePosition.START,
@@ -242,6 +264,8 @@ export default definePlugin({
                     </ErrorBoundary>
                 ));
             },
-        } satisfies ProfileBadge));
+        } satisfies ProfileBadge)) ?? [];
+
+        return [...kiraBadges, ...donorBadges];
     }
 });
