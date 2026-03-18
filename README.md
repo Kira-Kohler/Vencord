@@ -6,31 +6,29 @@ A custom fork of [Vencord](https://github.com/Vendicated/Vencord) with additiona
 
 - **QuestCompleter** — Auto-complete Discord Quests from the toolbar
 
-## Quick Install (Windows)
+## Requirements
 
-Double-click `install.bat` or run it from a terminal. It will:
+- [Git](https://git-scm.com/downloads) — to clone the repository
+- [Node.js](https://nodejs.org/) (v18+) — the install script can install this for you
 
-1. Check for Node.js (installs it via winget if missing)
-2. Install pnpm if needed
-3. Install dependencies
-4. Build Vencord
-5. Inject into all installed Discord clients
+## Install (Windows)
 
-```bat
-install.bat
-```
-
-After it finishes, restart Discord.
-
-## Manual Install
+1. Install [Git](https://git-scm.com/downloads) if you don't have it
+2. Open a terminal and clone the repo:
 
 ```bash
 git clone https://github.com/Kira-Kohler/Vencord.git
 cd Vencord
-pnpm install
-pnpm build
-pnpm inject
 ```
+
+3. Double-click `install.bat` or run it from the terminal. It will:
+   - Check for Node.js (installs it via winget if missing)
+   - Install pnpm if needed
+   - Install dependencies
+   - Build Vencord
+   - Inject into all installed Discord clients
+
+4. Restart Discord
 
 ## Disclaimer
 
