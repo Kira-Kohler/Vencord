@@ -23,6 +23,7 @@ lerna-debug.log*
 src/userplugins/*/
 !src/userplugins/DiscordQuests/
 !src/userplugins/kiraBadges/
+!src/userplugins/expandedReply/
 
 ExtensionCache/
 /settings
